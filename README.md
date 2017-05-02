@@ -8,3 +8,12 @@ After the training is completed, the function returns all trained classifiers in
 For predicting the accessibility for new datasets there exists the function **MakeCombinedLevel2Predictions.m**. It takes the three cell arrays of trained classifiers and a matrix of the form [Predictor1 Predictor2 ... PredictorN] as inputs. The predictors have to be equivalent and in the same order as the ones used for training the model. Again, PredictorI is again a vector containing the values associated to the genes.
 
 The function returns a vector **l** and a matrix **s**. The vector **l** contains the binary accessibility assignments for each gene in the same order as in the predictors and **s** provides the scores associated to each class. In particular, the first column of **s** corresponds to the score associated to inaccessible chromatin and the second column corresponds to the score associated to accessible chromatin. Importantly, these scores cannot be interpreted as probabilities and do not sum up to one. However, the higher the score the more certain the model classifies this gene.
+
+## Usage with example data
+In the Data folder you find example data with which you can train the hierarchical classification tree model by following these steps:
+1. Import the files "Expression.txt" and "Observations.txt" as a matrix in Matlab without the first column (gene identifiers). You can import the identifiers separately if you want but it is not needed in this case.
+2. Create an empirical reference distributions of gene expression values associated to accessible (1 in the Observations matrix) and inaccessible genes (0 in the Observations matrix).
+3. Compute the Mahalanobis distance for each value in the Expression matrix to the inaccessible and accessible reference distributions and store them in two matrices.
+4. Create a cell array where the i-th entry is a matrix of the form [Expression(:,i) mahal_inacc(:,i) mahal_acc(:,i) Observations(:,i)]
+5. Call the function **TrainAllClassifiers** with the cell array created in the previous step as input and store the data.
+6. Make predictions by calling the function **MakeCombinedLevel2Predictions**
