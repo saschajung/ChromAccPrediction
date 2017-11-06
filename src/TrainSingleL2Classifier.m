@@ -38,6 +38,10 @@ classificationEnsemble = fitensemble(...
     'LearnRate', 0.1, ...
     'ClassNames', [0; 1],'nprint',10);
 
+% Compact the classification ensembl
+% Important for saving space!!
+classificationEnsemble = compact(classificationEnsemble);
+
 trainedClassifier.ClassificationEnsemble = classificationEnsemble;
 convertMatrixToTableFcn = @(x) table(x, 'VariableNames', {'column'});
 splitMatricesInTableFcn = @(t) [t(:,setdiff(t.Properties.VariableNames, {'column'})), array2table(table2array(t(:,{'column'})), 'VariableNames', predictorVar)];

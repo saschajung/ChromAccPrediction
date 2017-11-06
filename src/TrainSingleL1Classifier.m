@@ -65,6 +65,10 @@ classificationEnsemble = fitensemble(...
     'LearnRate', 0.1, ...
     'ClassNames', [0; 1]);
 
+% Compact the classification ensembl
+% Important to save resources!!
+classificationEnsemble = compact(classificationEnsemble);
+
 trainedClassifier.PCACenters = pcaCenters;
 trainedClassifier.PCACoefficients = pcaCoefficients;
 trainedClassifier.ClassificationEnsemble = classificationEnsemble;
